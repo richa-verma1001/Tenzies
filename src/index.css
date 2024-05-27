@@ -1,0 +1,110 @@
+:root {
+  font-family: Karla, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0B2434;
+  --shadow: 1px 2px 10px rgba(104, 104, 104, 0.8);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  font-size: 32px;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  background-color: #F5F5F5;
+  color: #2B283A;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+header > p {
+  display: flex;
+  justify-content: center;
+  max-width: 40ch;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 1em;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+.diceBoard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.diceBoard__grid {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(5, auto);
+  gap: 1em;
+}
+.diceBoard__dice {
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  color: #2B283A;
+
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20%;
+  cursor: pointer;
+}
+
+.diceBoard__dice:hover {
+  background-color: pink
+}
+
+.fixed {
+  background-color: lightgreen;
+}
+
+.diceBoard_btn {
+  background-color: #5035FF;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  width: 90px;
+  height: 40px;
+  border-radius: 5%;
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow);
+}
