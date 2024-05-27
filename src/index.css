@@ -21,17 +21,10 @@ body {
   justify-content: center;
 }
 
-h2 {
-  font-size: 32px;
-  margin: 0;
-  padding: 0;
-}
-.container {
-  background-color: #F5F5F5;
-  color: #2B283A;
+main {
   display: flex;
   flex-direction: column;
-  padding: 25px;
+  justify-content: center;
 }
 
 header {
@@ -52,12 +45,36 @@ header > p {
   padding: 0;
 }
 
-main {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+h2 {
+  font-size: 32px;
+  margin: 0;
+  padding: 0;
 }
 
+article {
+  padding-bottom: 16px;
+}
+.container {
+  background-color: #F5F5F5;
+  color: #2B283A;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  position: relative;
+  border-radius: 5px;
+}
+
+.tenzies-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+footer {
+  position: absolute;
+  bottom: -16px;
+  right: 16px;
+}
 
 .diceBoard {
   display: flex;
@@ -78,7 +95,6 @@ main {
   height: 30px;
   background-color: #ffffff;
   color: #2B283A;
-
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;

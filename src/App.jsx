@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Dice from "../components/Dice";
 import Confetti from "react-confetti";
-import useWindowSize from "react-use/lib/useWindowSize";
 
 function App() {
-  const [numOfDice, setNumOfDice] = useState(10);
+  const [numRolls, setNumRolls] = useState(0);
+  const [gameWon, setGameWon] = useState(() => false);
+  const [bestScore, setBestScore] = useState(
+    () => JSON.parse(localStorage.getItem("tenziesRolls")) || 0
+  );
   const [diceBoard, setDiceBoard] = useState([
     { id: 0, fixed: false, value: Math.floor(Math.random() * 6) + 1 },
     { id: 1, fixed: false, value: Math.floor(Math.random() * 6) + 1 },
@@ -19,8 +22,6 @@ function App() {
     { id: 9, fixed: false, value: Math.floor(Math.random() * 6) + 1 },
   ]);
 
-  const [gameWon, setGameWon] = useState(() => false);
-  const { width, height } = useWindowSize();
   const diceElements = diceBoard.map((dice) => {
     return (
       <Dice
@@ -41,24 +42,21 @@ function App() {
     });
   }
 
-  function rollDice() {
-    // set a new dice board
-    setDiceBoard((prevBoard) => {
-      return prevBoard.map((dice) => {
-        return !dice.fixed
-          ? { ...dice, value: Math.floor(Math.random() * 6) + 1 }
-          : dice;
-      });
-    });
-  }
-
   useEffect(() => {
-    // update gameWon status
     const allFixed = diceBoard.every((die) => die.fixed);
     const firstDiceVal = diceBoard[0].value;
     const allSame = diceBoard.every((die) => die.value === firstDiceVal);
     setGameWon(allFixed && allSame);
   }, [diceBoard]);
+
+  useEffect(() => {
+    if (gameWon) {
+      if (bestScore === 0 || numRolls < bestScore) {
+        localStorage.setItem("tenziesRolls", numRolls);
+        setBestScore(numRolls);
+      }
+    }
+  }, [gameWon]);
 
   function resetBoard() {
     setDiceBoard((prevBoard) => {
@@ -71,14 +69,31 @@ function App() {
       });
     });
     setGameWon(false);
+    setNumRolls(0);
+  }
+
+  function rollDice() {
+    // set a new dice board
+    setDiceBoard((prevBoard) => {
+      return prevBoard.map((dice) => {
+        return !dice.fixed
+          ? { ...dice, value: Math.floor(Math.random() * 6) + 1 }
+          : dice;
+      });
+    });
+    setNumRolls((prev) => prev + 1);
   }
 
   return (
     <>
       <div className="container">
-        {gameWon && <Confetti width={width} height={height} />}
+        {gameWon && <Confetti />}
         <Header></Header>
         <main>
+          <article className="tenzies-info">
+            <h3>Rolls: {numRolls}</h3>
+            <h3>Time: 0.00s</h3>
+          </article>
           <article className="diceBoard">
             <div className="diceBoard__grid">{diceElements}</div>
             <div className="diceBoard__footer">
@@ -93,6 +108,9 @@ function App() {
               )}
             </div>
           </article>
+          <footer>
+            <h5 className="tenzies-corner">Best Score: {bestScore}</h5>
+          </footer>
         </main>
       </div>
     </>
